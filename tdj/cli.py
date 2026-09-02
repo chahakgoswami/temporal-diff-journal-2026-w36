@@ -2,6 +2,7 @@ import argparse
 import sys
 
 from tdj.commands.new import cmd_new
+from tdj.commands.show import cmd_show
 
 
 def build_parser():
@@ -11,7 +12,7 @@ def build_parser():
     )
     subparsers = parser.add_subparsers(dest="command", metavar="<command>")
 
-    # ── new ──────────────────────────────────────────────────────────────────
+    # ── new ──────────────────────────────────────────────────────────────────────────
     new_parser = subparsers.add_parser(
         "new",
         help="Create a new journal entry for today (or a specified date).",
@@ -29,6 +30,19 @@ def build_parser():
         help="Entry text (if omitted, opens $EDITOR or prompts for input).",
     )
 
+    # ── show ─────────────────────────────────────────────────────────────────────────
+    show_parser = subparsers.add_parser(
+        "show",
+        help="Display a journal entry by date, 'today', or 'yesterday'.",
+    )
+    show_parser.add_argument(
+        "date",
+        metavar="DATE",
+        nargs="?",
+        default="today",
+        help="Date to show: YYYY-MM-DD, 'today' (default), or 'yesterday'.",
+    )
+
     return parser
 
 
@@ -42,6 +56,8 @@ def main():
 
     if args.command == "new":
         cmd_new(args)
+    elif args.command == "show":
+        cmd_show(args)
     else:
         parser.print_help()
         sys.exit(1)
