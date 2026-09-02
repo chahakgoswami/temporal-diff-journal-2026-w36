@@ -1,2 +1,2 @@
-# Runtime dependencies will grow as features are added.
-# Day 2+ will add colorama, etc.
+# Runtime dependencies
+colorama>=0.4.6
