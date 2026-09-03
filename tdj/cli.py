@@ -3,6 +3,7 @@ import sys
 
 from tdj.commands.new import cmd_new
 from tdj.commands.show import cmd_show
+from tdj.commands.diff import cmd_diff
 
 
 def build_parser():
@@ -43,6 +44,22 @@ def build_parser():
         help="Date to show: YYYY-MM-DD, 'today' (default), or 'yesterday'.",
     )
 
+    # ── diff ─────────────────────────────────────────────────────────────────────────
+    diff_parser = subparsers.add_parser(
+        "diff",
+        help="Show a word-level diff between two journal entries.",
+    )
+    diff_parser.add_argument(
+        "date_a",
+        metavar="DATE_A",
+        help="Older entry date: YYYY-MM-DD, 'today', or 'yesterday'.",
+    )
+    diff_parser.add_argument(
+        "date_b",
+        metavar="DATE_B",
+        help="Newer entry date: YYYY-MM-DD, 'today', or 'yesterday'.",
+    )
+
     return parser
 
 
@@ -58,6 +75,8 @@ def main():
         cmd_new(args)
     elif args.command == "show":
         cmd_show(args)
+    elif args.command == "diff":
+        cmd_diff(args)
     else:
         parser.print_help()
         sys.exit(1)
