@@ -4,6 +4,7 @@ import sys
 from tdj.commands.new import cmd_new
 from tdj.commands.show import cmd_show
 from tdj.commands.diff import cmd_diff
+from tdj.commands.log import cmd_log
 
 
 def build_parser():
@@ -60,6 +61,12 @@ def build_parser():
         help="Newer entry date: YYYY-MM-DD, 'today', or 'yesterday'.",
     )
 
+    # ── log ──────────────────────────────────────────────────────────────────────────
+    subparsers.add_parser(
+        "log",
+        help="List all journal entries with a one-line summary and word count.",
+    )
+
     return parser
 
 
@@ -77,6 +84,12 @@ def main():
         cmd_show(args)
     elif args.command == "diff":
         cmd_diff(args)
+    elif args.command == "log":
+        cmd_log(args)
     else:
         parser.print_help()
         sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
