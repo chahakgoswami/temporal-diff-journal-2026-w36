@@ -5,6 +5,7 @@ from tdj.commands.new import cmd_new
 from tdj.commands.show import cmd_show
 from tdj.commands.diff import cmd_diff
 from tdj.commands.log import cmd_log
+from tdj.commands.evolve import cmd_evolve
 
 
 def build_parser():
@@ -67,6 +68,12 @@ def build_parser():
         help="List all journal entries with a one-line summary and word count.",
     )
 
+    # ── evolve ───────────────────────────────────────────────────────────────────────
+    subparsers.add_parser(
+        "evolve",
+        help="Chain diffs across all entries chronologically; highlight recurring, growing, and vanished phrases.",
+    )
+
     return parser
 
 
@@ -86,6 +93,8 @@ def main():
         cmd_diff(args)
     elif args.command == "log":
         cmd_log(args)
+    elif args.command == "evolve":
+        cmd_evolve(args)
     else:
         parser.print_help()
         sys.exit(1)
